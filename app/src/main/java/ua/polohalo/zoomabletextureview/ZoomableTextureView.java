@@ -143,41 +143,23 @@ public class ZoomableTextureView extends TextureView {
                     if (mode == ZOOM || (mode == DRAG && saveScale > minScale)) {
                         float deltaX = curr.x - last.x;// x difference
                         float deltaY = curr.y - last.y;// y difference
-                        float scaleWidth = 0;// width after applying current scale
-                        float scaleHeight = 0;// height after applying current scale
+
                         //if scaleWidth is smaller than the views width
                         //in other words if the image width fits in the view
                         //limit left and right movement
-                        if (scaleWidth < width) {
-                            deltaX = 0;
-                            if (y + deltaY > 0)
-                                deltaY = -y;
-                            else if (y + deltaY < -bottom)
-                                deltaY = -(y + bottom);
-                        }
-                        //if scaleHeight is smaller than the views height
-                        //in other words if the image height fits in the view
-                        //limit up and down movement
-                        else if (scaleHeight < height) {
-                            deltaY = 0;
-                            if (x + deltaX > 0)
-                                deltaX = -x;
-                            else if (x + deltaX < -right)
-                                deltaX = -(x + right);
-                        }
-                        //if the image doesnt fit in the width or height
-                        //limit both up and down and left and right
-                        else {
-                            if (x + deltaX > 0)
-                                deltaX = -x;
-                            else if (x + deltaX < -right)
-                                deltaX = -(x + right);
 
-                            if (y + deltaY > 0)
-                                deltaY = -y;
-                            else if (y + deltaY < -bottom)
-                                deltaY = -(y + bottom);
-                        }
+                        if (y + deltaY > 0)
+                            deltaY = -y;
+                        else if (y + deltaY < -bottom)
+                            deltaY = -(y + bottom);
+
+
+                        if (x + deltaX > 0)
+                            deltaX = -x;
+                        else if (x + deltaX < -right)
+                            deltaX = -(x + right);
+
+
                         //move the image with the matrix
                         matrix.postTranslate(deltaX, deltaY);
                         //set the last touch location to the current
