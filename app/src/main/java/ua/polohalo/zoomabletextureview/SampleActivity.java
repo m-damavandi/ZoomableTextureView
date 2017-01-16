@@ -13,11 +13,9 @@ import android.widget.LinearLayout;
 
 import java.io.IOException;
 //todo convert to lib
-public class SampleActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener, MediaPlayer.OnPreparedListener, SurfaceHolder.Callback {
+public class SampleActivity extends AppCompatActivity implements TextureView.SurfaceTextureListener, MediaPlayer.OnPreparedListener{
 
     private ZoomableTextureView textureView;
-    private ZoomableSurfaceView surfaceView;
-    private MediaPlayer mediaPlayerSurface;
     private MediaPlayer mediaPlayerTexture;
 
     String path = "http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4";
@@ -27,8 +25,6 @@ public class SampleActivity extends AppCompatActivity implements TextureView.Sur
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textureView = (ZoomableTextureView) findViewById(R.id.textureView);
-        surfaceView = (ZoomableSurfaceView) findViewById(R.id.surfaceView);
-        surfaceView.getHolder().addCallback(this);
 
         textureView.setSurfaceTextureListener(this);
     }
@@ -87,32 +83,9 @@ public class SampleActivity extends AppCompatActivity implements TextureView.Sur
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayerSurface != null) {
-            mediaPlayerSurface.release();
-            mediaPlayerSurface = null;
-        }
         if (mediaPlayerTexture != null) {
             mediaPlayerTexture.release();
             mediaPlayerTexture = null;
         }
-    }
-
-    /** SurfaceView **/
-    @Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        mediaPlayerSurface = MediaPlayer.create(getApplicationContext(), Uri.parse(path), surfaceHolder);
-        mediaPlayerSurface.prepareAsync();
-        mediaPlayerSurface.setOnPreparedListener(this);
-
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-
     }
 }
