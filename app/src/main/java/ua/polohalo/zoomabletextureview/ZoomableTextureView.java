@@ -199,7 +199,7 @@ public class ZoomableTextureView extends TextureView {
                 right = width * saveScale - width;
                 bottom = height * saveScale - height;
                 if (0 <= width || 0 <= height) {
-                    matrix.postScale(mScaleFactor, mScaleFactor, width / 2, height / 2);
+                    matrix.postScale(mScaleFactor, mScaleFactor, detector.getFocusX(), detector.getFocusY());
                     if (mScaleFactor < 1) {
                         matrix.getValues(m);
                         float x = m[Matrix.MTRANS_X];
